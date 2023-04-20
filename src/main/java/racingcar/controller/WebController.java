@@ -27,14 +27,19 @@ public class WebController {
     public ResponseEntity<List<GameResultResponseDto>> getHistory() {
         return ResponseEntity.ok(racingGameService.getHistory());
     }
+
     @PostMapping("/plays")
-    public ResponseEntity<GameResultResponseDto> runRacingGame(@RequestBody UserRequestDto inputDto) {
+    public ResponseEntity<GameResultResponseDto> runRacingGame(@RequestBody final UserRequestDto inputDto) {
         return ResponseEntity.ok(racingGameService.getResult(inputDto));
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Void> hello(RuntimeException exception) {
-        exception.printStackTrace();
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> hello(final RuntimeException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> hello(final Exception exception) {
+        return ResponseEntity.internalServerError().body("예기치 못한 에러가 발생했습니다.");
     }
 }
