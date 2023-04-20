@@ -13,21 +13,21 @@ import java.util.Map;
 @Repository
 public class RacingGameRepository {
 
-    private final GameResultDao gameResultDaoWebImpl;
-    private final CarDao carDaoWebImpl;
+    private final GameResultDao gameResultDao;
+    private final CarDao carDao;
 
-    public RacingGameRepository(final GameResultDao gameResultDaoWebImpl, final CarDao carDaoWebImpl) {
-        this.gameResultDaoWebImpl = gameResultDaoWebImpl;
-        this.carDaoWebImpl = carDaoWebImpl;
+    public RacingGameRepository(final GameResultDao gameResultDao, final CarDao carDao) {
+        this.gameResultDao = gameResultDao;
+        this.carDao = carDao;
     }
 
     public Long save(final RacingGame racingGame) {
-        final Long gameId = gameResultDaoWebImpl.save(DtoMapper.toRacingGameDto(racingGame));
-        carDaoWebImpl.saveAll(DtoMapper.mapToCarsDto(gameId, racingGame));
+        final Long gameId = gameResultDao.save(DtoMapper.toRacingGameDto(racingGame));
+        carDao.saveAll(DtoMapper.mapToCarsDto(gameId, racingGame));
         return gameId;
     }
 
     public Map<Long, List<GameResultWithCarDto>> findAll() {
-        return gameResultDaoWebImpl.findAll();
+        return gameResultDao.findAll();
     }
 }
