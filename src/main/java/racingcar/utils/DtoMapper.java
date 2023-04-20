@@ -2,14 +2,10 @@ package racingcar.utils;
 
 import racingcar.domain.Car;
 import racingcar.domain.Cars;
-import racingcar.domain.Name;
-import racingcar.domain.Names;
 import racingcar.domain.RacingGame;
-import racingcar.domain.TryCount;
 import racingcar.dto.db.CarDto;
 import racingcar.dto.db.GameResultDto;
 import racingcar.dto.db.GameResultWithCarDto;
-import racingcar.dto.request.UserRequestDto;
 import racingcar.dto.response.CarResponseDto;
 import racingcar.dto.response.GameResultResponseDto;
 
@@ -36,14 +32,6 @@ public final class DtoMapper {
                 .stream()
                 .map(car -> new CarDto(gameId, car.getNameValue(), car.getPositionValue(), car.isWinner()))
                 .collect(Collectors.toList());
-    }
-
-    public static UserRequestDto mapToUserRequestDto(final Names names, final TryCount tryCount) {
-        final String carNames = names.getNames()
-                .stream()
-                .map(Name::getName)
-                .collect(Collectors.joining(","));
-        return new UserRequestDto(carNames, tryCount.getCount());
     }
 
     public static GameResultResponseDto mapToGameResultResponseDto(final Cars finalResult) {

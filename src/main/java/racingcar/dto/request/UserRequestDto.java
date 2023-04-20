@@ -5,7 +5,7 @@ public final class UserRequestDto {
     private String names;
     private Integer count;
 
-    public UserRequestDto() {
+    private UserRequestDto() {
     }
 
     public UserRequestDto(final String names, final Integer count) {

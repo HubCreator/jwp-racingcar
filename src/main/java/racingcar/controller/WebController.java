@@ -29,8 +29,7 @@ public class WebController {
     }
     @PostMapping("/plays")
     public ResponseEntity<GameResultResponseDto> runRacingGame(@RequestBody UserRequestDto inputDto) {
-        final GameResultResponseDto gameResultResponseDto = racingGameService.getResult(inputDto);
-        return ResponseEntity.ok(gameResultResponseDto);
+        return ResponseEntity.ok(racingGameService.getResult(inputDto));
     }
 
     @ExceptionHandler(RuntimeException.class)

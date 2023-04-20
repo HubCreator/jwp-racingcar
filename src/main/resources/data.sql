@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS car CASCADE;
 
 CREATE TABLE game_result
 (
-    id        INT      NOT NULL AUTO_INCREMENT,
+    id        BIGINT      NOT NULL AUTO_INCREMENT,
     try_count INT      NOT NULL,
     played_at DATETIME NOT NULL default current_timestamp,
     PRIMARY KEY (id)

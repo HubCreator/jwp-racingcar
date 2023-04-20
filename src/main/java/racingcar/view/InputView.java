@@ -1,6 +1,5 @@
 package racingcar.view;
 
-import java.util.List;
 import java.util.Scanner;
 
 public final class InputView {
@@ -13,10 +12,14 @@ public final class InputView {
         this.scanner = scanner;
     }
 
-    public List<String> readCarNames() {
+    /*public List<String> readCarNames() {
         printMessage("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
         final String[] split = readLine().split(DELIMITER);
         return List.of(split);
+    }*/
+    public String readCarNames() {
+        printMessage("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
+        return readLine();
     }
 
     public int readTryCount() {

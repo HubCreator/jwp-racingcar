@@ -22,6 +22,8 @@ public final class ConsoleApplication {
                                     new GameResultDaoConsoleImpl(), new CarDaoConsoleImpl())));
 
             controller.run(new DefaultMovingStrategy());
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }
