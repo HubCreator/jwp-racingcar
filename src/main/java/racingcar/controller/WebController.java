@@ -2,7 +2,6 @@ package racingcar.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +12,7 @@ import racingcar.dto.request.UserRequestDto;
 import racingcar.dto.response.GameResultResponseDto;
 import racingcar.service.RacingGameService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,7 +31,7 @@ public class WebController {
     }
 
     @PostMapping("/plays")
-    public ResponseEntity<GameResultResponseDto> runRacingGame(@Validated @RequestBody UserRequestDto inputDto) {
+    public ResponseEntity<GameResultResponseDto> runRacingGame(@Valid @RequestBody UserRequestDto inputDto) {
         return ResponseEntity.ok(racingGameService.getResult(inputDto));
     }
 
@@ -42,10 +42,10 @@ public class WebController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> invalidInput(final MethodArgumentNotValidException exception) {
-//        final MethodParameter parameter = exception.getParameter();
-        String errorMessage = exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-
-        return ResponseEntity.internalServerError().body(errorMessage);
+        String errorMessage = exception.getBindingResult()
+                .getFieldError()
+                .getDefaultMessage();
+        return ResponseEntity.badRequest().body(errorMessage);
     }
 
     @ExceptionHandler(Exception.class)
