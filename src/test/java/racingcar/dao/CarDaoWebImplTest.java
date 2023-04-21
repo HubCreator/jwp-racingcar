@@ -13,8 +13,6 @@ import racingcar.domain.TryCount;
 import racingcar.domain.movingstrategy.DefaultMovingStrategy;
 import racingcar.utils.DtoMapper;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Sql("/data.sql")
@@ -29,8 +27,7 @@ class CarDaoWebImplTest {
 
     @Test
     void save() {
-        final List<String> names = List.of("헙크", "채채");
-        final RacingGame racingGame = new RacingGame(new Names(names), new TryCount(3));
+        final RacingGame racingGame = new RacingGame(new Names("헙크, 채채"), new TryCount(3));
         racingGame.run(new DefaultMovingStrategy());
         Long gameResultId = gameResultDaoWebImpl.save(DtoMapper.toRacingGameDto(racingGame));
         assertThat(1L).isEqualTo(gameResultId);

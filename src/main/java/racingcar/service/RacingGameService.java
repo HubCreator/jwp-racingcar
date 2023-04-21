@@ -33,10 +33,8 @@ public class RacingGameService {
     }
 
     private RacingGame createRacingGame(final UserRequestDto inputDto) {
-        final String names = inputDto.getNames();
-        final List<String> splitNames = List.of(names.split(","));
 
-        return new RacingGame(new Names(splitNames), new TryCount(inputDto.getCount()));
+        return new RacingGame(new Names(inputDto.getNames()), new TryCount(inputDto.getCount()));
     }
 
     @Transactional(readOnly = true)
