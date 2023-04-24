@@ -1,5 +1,8 @@
 package racingcar.domain;
 
+import lombok.Data;
+
+@Data
 public final class Car {
 
     private final Name name;

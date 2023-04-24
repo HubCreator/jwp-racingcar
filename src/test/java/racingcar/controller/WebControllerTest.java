@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.is;
 
 @Sql("/data.sql")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class WebControllerTest {
+public class WebControllerTest {
 
     @LocalServerPort
     int port;

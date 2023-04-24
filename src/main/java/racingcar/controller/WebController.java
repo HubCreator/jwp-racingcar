@@ -1,13 +1,14 @@
 package racingcar.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import racingcar.dto.request.UserRequestDto;
 import racingcar.dto.response.GameResultResponseDto;
 import racingcar.service.RacingGameService;
@@ -15,7 +16,7 @@ import racingcar.service.RacingGameService;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 public class WebController {
 
     private final RacingGameService racingGameService;
@@ -24,15 +25,16 @@ public class WebController {
         this.racingGameService = racingGameService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/plays")
-    @ResponseBody
-    public ResponseEntity<List<GameResultResponseDto>> getHistory() {
-        return ResponseEntity.ok(racingGameService.getHistory());
+    public List<GameResultResponseDto> getHistory() {
+        return racingGameService.getHistory();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/plays")
-    public ResponseEntity<GameResultResponseDto> runRacingGame(@Valid @RequestBody UserRequestDto inputDto) {
-        return ResponseEntity.ok(racingGameService.getResult(inputDto));
+    public GameResultResponseDto runRacingGame(@Valid @RequestBody UserRequestDto inputDto) {
+        return racingGameService.getResult(inputDto);
     }
 
     @ExceptionHandler(RuntimeException.class)
@@ -53,4 +55,5 @@ public class WebController {
         exception.printStackTrace();
         return ResponseEntity.internalServerError().body("예기치 못한 에러가 발생했습니다.");
     }
+
 }
